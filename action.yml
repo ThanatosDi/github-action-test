@@ -45,7 +45,4 @@ runs:
 
     - name: Run Check
       shell: bash
-      run: |
-        echo "::group::Run Check"
-        ls -al
-        echo "::endgroup::"
+      run: python ./main.py
