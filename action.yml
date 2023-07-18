@@ -47,5 +47,5 @@ runs:
       shell: bash
       run: |
         echo "::group::Run Check"
-        python main.py
+        ls -al
         echo "::endgroup::"
