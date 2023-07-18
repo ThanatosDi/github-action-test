@@ -3,8 +3,8 @@ import re
 
 import opencc
 
-from modules.php import PHP
-from modules.python import Python
+# from modules.php import PHP
+# from modules.python import Python
 
 
 def is_traditional(text: str) -> bool:
