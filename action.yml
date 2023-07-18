@@ -1,0 +1,25 @@
+---
+name: "Custom GitHub Action"
+description: "A GitHub Action that takes an input and returns the square of the number"
+
+inputs:
+  language:
+    description: "Enter a number"
+    required: true
+    default: "python"
+outputs:
+  new-version:
+    description: Incremented version based on the input
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+
+    - name: Show Python version
+      run: echo "::notify::`python -V`"
