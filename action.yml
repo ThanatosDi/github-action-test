@@ -36,9 +36,16 @@ runs:
       shell: bash
       run: echo "::notify::`python -V`"
 
-    - name: Shoe Python packages
+    - name: Show Python packages
       shell: bash
       run: |
         echo "::group::Python Packages"
         echo "`pip list`"
+        echo "::endgroup::"
+
+    - name: Run Check
+      shell: bash
+      run: |
+        echo "::group::Run Check"
+        python main.py
         echo "::endgroup::"
