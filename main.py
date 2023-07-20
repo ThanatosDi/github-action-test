@@ -14,7 +14,6 @@ def is_traditional(text: str, custom_dictionary: dict = {}) -> bool:
     with open('./dictionary.json', 'r', encoding='utf-8') as f:
         dictionary = json.loads(f.read())
     dictionary.update(custom_dictionary)
-    print(dictionary)
     traditional_text = zhconv.convert(text, 'zh-tw', dictionary)
     return traditional_text == text
 
