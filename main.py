@@ -40,11 +40,11 @@ def main():
             if not is_traditional(comment, custom_dictionary=DICTIONARY):
                 ERROR_COMMENTS.append({os.path.basename(file): comment})
     if any(ERROR_COMMENTS):
+        print(f"::group::發現錯誤")
         for comment in ERROR_COMMENTS:
             for filename, comment in comment.items():
-                print(f"::group::發現錯誤")
                 print(f"::error file={filename}:: {filename}: {comment}")
-                print(f"::endgroup::")
+        print(f"::endgroup::")
         sys.exit(1)
 
 
