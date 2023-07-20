@@ -23,5 +23,5 @@ runs:
       shell: bash
     - name: Fetch the number's square
       id: get-square
-      run: python $GITHUB_ACTION_PATH/../src/get_num_square.py
+      run: python $GITHUB_ACTION_PATH/src/get_num_square.py
       shell: bash
