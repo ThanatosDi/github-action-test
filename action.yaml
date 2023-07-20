@@ -5,11 +5,19 @@ inputs:
     description: 'Enter a number'
     required: true
     default: "1"
+  code-language:
+    description: 'Enter scan code language.'
+    required: true
+    default: 'php'
 outputs:
+  code-language:
+    description: 'Show scan code language.'
+
   num_squared:
     description: 'Square of the input'
     # need to specify the extra `value` field for `composite` actions
     value: ${{ steps.get-square.outputs.num_squared }}
+
 runs:
   using: 'composite'
   steps:
@@ -17,10 +25,12 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
+
     - name: Pass Inputs to Shell
       run: |
               echo "INPUT_NUM=${{ inputs.num }}" >> $GITHUB_ENV
       shell: bash
+
     - name: Fetch the number's square
       id: get-square
       run: python $GITHUB_ACTION_PATH/src/get_num_square.py
