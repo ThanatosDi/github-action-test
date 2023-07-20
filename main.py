@@ -18,6 +18,12 @@ def is_traditional(text: str, custom_dictionary: dict = {}) -> bool:
     traditional_text = zhconv.convert(text, 'zh-tw', dictionary)
     return traditional_text == text
 
+def suggestion(text: str, custom_dictionary: dict = {}) -> str:
+    with open('./dictionary.json', 'r', encoding='utf-8') as f:
+        dictionary = json.loads(f.read())
+    dictionary.update(custom_dictionary)
+    traditional_text = zhconv.convert(text, 'zh-tw', dictionary)
+    return traditional_text
 
 def main():
     CODE_LANGUAGE = os.environ.get('code-language', 'php')
@@ -43,7 +49,7 @@ def main():
         print(f"::group::發現錯誤")
         for comment in ERROR_COMMENTS:
             for filename, comment in comment.items():
-                print(f"::error file={filename}:: {filename}: {comment}")
+                print(f"::error file={filename}:: {filename}: {comment} ({suggestion(comment)})")
         print(f"::endgroup::")
         sys.exit(1)
 
