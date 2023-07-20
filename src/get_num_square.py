@@ -12,3 +12,4 @@ else:
 
 # to set output, print to shell in following syntax
 print(f"::set-output name=num_squared::{num ** 2}")
+print(f"::notice::{os.listdir('./')}")
