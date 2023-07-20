@@ -6,7 +6,8 @@ import zhconv
 from alive_progress import alive_it
 
 from modules.php import PHP
-from modules.python import Python
+
+# from modules.python import Python # 暫時註解掉，因為還沒實現
 
 
 def is_traditional(text: str, custom_dictionary: dict = {}) -> bool:
