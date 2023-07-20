@@ -12,6 +12,7 @@ inputs:
 outputs:
   code-language:
     description: 'Show scan code language.'
+    value: ${{ inputs.code-language }}
 
   num_squared:
     description: 'Square of the input'
