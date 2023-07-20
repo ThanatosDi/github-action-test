@@ -42,7 +42,7 @@ def main():
     if any(ERROR_COMMENTS):
         for comment in ERROR_COMMENTS:
             for filename, comment in comment.items():
-                print(f"::error file={filename}:: {comment}")
+                print(f"::error file={filename}:: {filename}: {comment}")
         sys.exit(1)
 
 
