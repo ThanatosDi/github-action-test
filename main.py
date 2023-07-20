@@ -1,6 +1,7 @@
 import json
 import os
 import pprint
+import sys
 
 import zhconv
 from alive_progress import alive_it
@@ -42,6 +43,7 @@ def main():
         for comment in ERROR_COMMENTS:
             for filename, comment in comment.items():
                 print(f"::error file={filename}:: {comment}")
+        sys.exit(1)
 
 
 if __name__ == '__main__':
