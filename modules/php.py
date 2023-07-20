@@ -9,7 +9,7 @@ class PHP:
     def __init__(self): ...
 
     def __ignore_files(self, path: str) -> list:
-        with open(f'{path}/.comment-ignore', 'r', encoding='utf-8') as f:
+        with open(f'{os.path.join(path, ".comment-ignore")}', 'r', encoding='utf-8') as f:
             return f.read().splitlines()
 
     def files(self, path: str, include_dir: list = ['tests', 'app']) -> list:

@@ -1,34 +1,48 @@
+import json
 import os
-import re
+import pprint
 
-import opencc
+import zhconv
+from alive_progress import alive_it
 
-# from modules.php import PHP
-# from modules.python import Python
+from modules.php import PHP
+from modules.python import Python
 
 
-def is_traditional(text: str) -> bool:
-    converter = opencc.OpenCC('s2t.json')
-    return text == converter.convert(text)
+def is_traditional(text: str, custom_dictionary: dict = {}) -> bool:
+    with open('./dictionary.json', 'r', encoding='utf-8') as f:
+        dictionary = json.loads(f.read())
+    dictionary.update(custom_dictionary)
+    print(dictionary)
+    traditional_text = zhconv.convert(text, 'zh-tw', dictionary)
+    return traditional_text == text
 
 
 def main():
-    CODE_LANGUAGE = os.environ.get('code-language', 'python')
-    LANGUAGE = os.environ.get('comment-language', 'zh-TW')
-    print(f'CODE_LANGUAGE: {CODE_LANGUAGE}')
-    print(f'LANGUAGE: {LANGUAGE}')
+    CODE_LANGUAGE = os.environ.get('code-language', 'php')
+    ROOT_PATH = os.environ.get('root-path', '../')  # TODO: 正式時要修改路徑為 ../
+    DICTIONARY = json.loads(os.environ.get('dictionary', "{}"))
+    INCLUDE_DIR = os.environ.get(
+        'include_dir', 'tests, app').replace(' ', '').split(',')
+    ERROR_COMMENTS = []
 
+    files = PHP().files(path=ROOT_PATH, include_dir=INCLUDE_DIR)
+    comments = []
+    for file in alive_it(files):
+        match(CODE_LANGUAGE.lower()):
+            case 'php':
+                comments = PHP().comments(file)
+            # TODO: Python 語言的實現
+            case _:
+                raise ValueError('Not support this language')
+        for comment in comments:
+            if not is_traditional(comment, custom_dictionary=DICTIONARY):
+                ERROR_COMMENTS.append({os.path.basename(file): comment})
+    if any(ERROR_COMMENTS):
+        for comment in ERROR_COMMENTS:
+            for filename, comment in comment.items():
+                print(f"::error file={filename}:: {comment}")
 
-# comments = PHP().comments('tests/test.php')
-
-# ERROR_COMMENTS = []
-# for comment in comments:
-#     if is_traditional(comment) == False:
-#         ERROR_COMMENTS.append(comment)
-
-# test = '// 這是一個範例的類別 汉字'
-
-# print(is_traditional(test))
 
 if __name__ == '__main__':
     main()
