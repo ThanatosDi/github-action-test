@@ -1,18 +1,33 @@
 name: 'Custom GitHub Action'
 description: 'A GitHub Action that takes an input and returns the square of the number'
 inputs:
-  num:
-    description: 'Enter a number'
-    required: true
-    default: "1"
   code-language:
     description: 'Enter scan code language.'
     required: true
     default: 'php'
+  custom-dictionary:
+    description: 'Enter custom chinese word dictionary.'
+    required: false
+    default: ''
+  scan-dir:
+    description: 'Will scan dir name.'
+    required: true
+    default: 'app, tests'
+  
+  num:
+    description: 'Enter a number'
+    required: true
+    default: "1"
 outputs:
   code-language:
     description: 'Show scan code language.'
     value: ${{ inputs.code-language }}
+  custom-dictionary:
+    description: 'Show custom-dictionary.'
+    value: ${{ inputs.custom-dictionary }}
+  scan-dir:
+    description: 'Show scan-dir.'
+    value: ${{ inputs.scan-dir }}
 
   num_squared:
     description: 'Square of the input'
@@ -28,11 +43,16 @@ runs:
         python-version: '3.10'
 
     - name: Pass Inputs to Shell
-      run: |
-              echo "INPUT_NUM=${{ inputs.num }}" >> $GITHUB_ENV
       shell: bash
+      run: |
+        echo "INPUT_NUM=${{ inputs.num }}" >> $GITHUB_ENV
+        echo "code-language=${{ inputs.code-language }}" >> $GITHUB_ENV
+        echo "custom-dictionary=${{ inputs.custom-dictionary }}" >> $GITHUB_ENV
+        echo "scan-dir=${{ inputs.scan-dir }}" >> $GITHUB_ENV
+      
 
-    - name: Fetch the number's square
+    - name: Fetch the number's square.
+      shell: bash
       id: get-square
       run: python $GITHUB_ACTION_PATH/src/get_num_square.py
-      shell: bash
+      
