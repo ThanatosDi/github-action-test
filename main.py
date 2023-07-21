@@ -26,14 +26,20 @@ def suggestion(text: str, custom_dictionary: dict = {}) -> str:
 
 
 def main():
+    CODE_PATH = os.environ.get('code-path', './')
     CODE_LANGUAGE = os.environ.get('code-language', 'php')
-    ROOT_PATH = os.environ.get('root-path', './')  # TODO: 正式時要修改路徑為 ../
-    CUSTOM_DICTIONARY = json.loads(os.environ.get('custom-dictionary', "{}").replace('\'', '"'))
     SCAN_DIR = os.environ.get(
         'scan-dir', 'tests, app').replace(' ', '').split(',')
+    CUSTOM_DICTIONARY = json.loads(os.environ.get('custom-dictionary', "{}").replace('\'', '"'))
     ERROR_COMMENTS = []
+    print(f'::group::Variable')
+    print(f'::notice::CODE_PATH: {CODE_PATH}')
+    print(f'::notice::CODE_LANGUAGE: {CODE_LANGUAGE}')
+    print(f'::notice::SCAN_DIR: {SCAN_DIR}')
+    print(f'::notice::CUSTOM_DICTIONARY: {CUSTOM_DICTIONARY}')
+    print(f'::endgroup::')
 
-    files = PHP().files(path=ROOT_PATH, include_dir=SCAN_DIR)
+    files = PHP().files(path=CODE_PATH, include_dir=SCAN_DIR)
     comments = []
     for file in alive_it(files):
         match(CODE_LANGUAGE.lower()):
