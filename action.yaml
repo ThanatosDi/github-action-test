@@ -44,9 +44,10 @@ runs:
     - name: Pass Inputs to Shell
       shell: bash
       run: |
+        echo "code-path=${{ inputs.code-path }}" >> $GITHUB_ENV
         echo "code-language=${{ inputs.code-language }}" >> $GITHUB_ENV
-        echo "custom-dictionary=${{ inputs.custom-dictionary }}" >> $GITHUB_ENV
         echo "scan-dir=${{ inputs.scan-dir }}" >> $GITHUB_ENV
+        echo "custom-dictionary=${{ inputs.custom-dictionary }}" >> $GITHUB_ENV
 
     - name: Install Python Packages
       shell: bash
