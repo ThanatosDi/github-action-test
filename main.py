@@ -8,10 +8,9 @@ from alive_progress import alive_it
 from modules.php import PHP
 # from modules.python import Python
 
-GITHUB_ACTION_PATH = os.environ.get('GITHUB-ACTION-PATH')
 
 def is_traditional(text: str, custom_dictionary: dict = {}) -> bool:
-    with open(f'{GITHUB_ACTION_PATH}/dictionary.json', 'r', encoding='utf-8') as f:
+    with open('./dictionary.json', 'r', encoding='utf-8') as f:
         dictionary = json.loads(f.read())
     dictionary.update(custom_dictionary)
     traditional_text = zhconv.convert(text, 'zh-tw', dictionary)
@@ -19,7 +18,7 @@ def is_traditional(text: str, custom_dictionary: dict = {}) -> bool:
 
 
 def suggestion(text: str, custom_dictionary: dict = {}) -> str:
-    with open(f'{GITHUB_ACTION_PATH}/dictionary.json', 'r', encoding='utf-8') as f:
+    with open('./dictionary.json', 'r', encoding='utf-8') as f:
         dictionary = json.loads(f.read())
     dictionary.update(custom_dictionary)
     traditional_text = zhconv.convert(text, 'zh-tw', dictionary)
