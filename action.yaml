@@ -48,7 +48,7 @@ runs:
         echo "code-language=${{ inputs.code-language }}" >> $GITHUB_ENV
         echo "scan-dir=${{ inputs.scan-dir }}" >> $GITHUB_ENV
         echo "custom-dictionary=${{ inputs.custom-dictionary }}" >> $GITHUB_ENV
-        echo "GITHUB-ACTION-PATH"=$GITHUB_ACTION_PATH" >> $GITHUB_ENV
+        echo "GITHUB-ACTION-PATH=$GITHUB_ACTION_PATH" >> $GITHUB_ENV
 
     - name: Install Python Packages
       shell: bash
