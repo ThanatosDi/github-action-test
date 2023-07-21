@@ -28,8 +28,7 @@ def suggestion(text: str, custom_dictionary: dict = {}) -> str:
 def main():
     CODE_LANGUAGE = os.environ.get('code-language', 'php')
     ROOT_PATH = os.environ.get('root-path', './')  # TODO: 正式時要修改路徑為 ../
-    CUSTOM_DICTIONARY = dict((key, value)
-                      for key, value in tuple(os.environ.get('custom-dictionary', "")))
+    CUSTOM_DICTIONARY = json.loads(os.environ.get('custom-dictionary', "{}").replace('\'', '"'))
     SCAN_DIR = os.environ.get(
         'scan-dir', 'tests, app').replace(' ', '').split(',')
     ERROR_COMMENTS = []
